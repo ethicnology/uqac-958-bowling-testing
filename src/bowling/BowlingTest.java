@@ -6,7 +6,14 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import stev.bowling.*;
+import stev.bowling.Game;
+import stev.bowling.NormalFrame;
+import stev.bowling.LastFrame;
+import stev.bowling.Frame;
+import stev.bowling.BowlingException;
+
+
+
 
 /**
  * 
@@ -27,7 +34,7 @@ public class BowlingTest {
 	 * NormalFrameSuccess should success with valid integers, between 1 to 9.
 	 */
 	@Test
-	public void NormalFrameSuccess() {
+	public void normalFrameSuccess() {
 		assertTrue(new NormalFrame(1) instanceof Frame);
 		assertTrue(new NormalFrame(2) instanceof Frame);
 		assertTrue(new NormalFrame(3) instanceof Frame);
@@ -44,7 +51,7 @@ public class BowlingTest {
 	 * below 1 or over 9 (10 should works only with LastFrame).
 	 */
 	@Test(expected = BowlingException.class)
-	public void NormalFrameFailure() throws Exception {
+	public void normalFrameFailure() throws Exception {
 		new NormalFrame(0);
 		new NormalFrame(10); // Should fail -> LastFrame
 	}
@@ -53,15 +60,15 @@ public class BowlingTest {
 	 * LastFrameSuccess should success with 10 a.k.a. last frame.
 	 */
 	@Test
-	public void LastFrameSuccess() {
+	public void lastFrameSuccess() {
 		assertTrue(new LastFrame(10) instanceof Frame);
 	}
 
 	/**
-	 * LastFrameException should throw exception, only acceptable value is 10.
+	 * LastFrameException should throw exception if value != 10.
 	 */
 	@Test(expected = BowlingException.class)
-	public void LastFrameFailure() throws Exception {
+	public void lastFrameFailure() throws Exception {
 		new LastFrame(0);
 		new LastFrame(1);
 		new LastFrame(2);
@@ -73,4 +80,27 @@ public class BowlingTest {
 		new LastFrame(8);
 		new LastFrame(9);
 	}
+	
+	/**
+	 * TODO
+	 */
+	@Test
+	public void setPinsDownSuccess() {
+		assertEquals("36", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 6).toString());
+		assertEquals("X ", new NormalFrame(2).setPinsDown(1, 10).toString());
+		assertEquals("--", new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, 0).toString());
+		assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
+	}
+	
+	/**
+	 * setPinsDownFailure should throw exception because it revert the throw order (2 instead of 1) and because it use non-valid value such as 3.
+	 */
+	@Test(expected = BowlingException.class)
+	public void setPinsDownFailure() {
+		new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6);
+		new NormalFrame(1).setPinsDown(3, 3);
+	}
+
+
+	
 }
