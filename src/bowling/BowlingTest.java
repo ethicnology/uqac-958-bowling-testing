@@ -49,15 +49,6 @@ public class BowlingTest {
 				for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
 					assertTrue("valid normal frame number " + frameNumber, new NormalFrame(frameNumber) instanceof Frame);
 				}
-				/*assertTrue(new NormalFrame(1) instanceof Frame);
-				assertTrue(new NormalFrame(2) instanceof Frame);
-				assertTrue(new NormalFrame(3) instanceof Frame);
-				assertTrue(new NormalFrame(4) instanceof Frame);
-				assertTrue(new NormalFrame(5) instanceof Frame);
-				assertTrue(new NormalFrame(6) instanceof Frame);
-				assertTrue(new NormalFrame(7) instanceof Frame);
-				assertTrue(new NormalFrame(8) instanceof Frame);
-				assertTrue(new NormalFrame(9) instanceof Frame);*/
 			}
 		
 			/**
@@ -98,7 +89,6 @@ public class BowlingTest {
 			@Test
 			public void setPinsDownSuccess() {
 				assertEquals("36", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 6).toString());
-				assertEquals("X ", new NormalFrame(2).setPinsDown(1, 10).toString());
 				assertEquals("--", new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, 0).toString());
 				assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
 			}
