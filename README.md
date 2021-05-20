@@ -34,10 +34,10 @@ Un carreau où le joueur réussit à abattre les dix quilles (que ce soit en un 
 
 Cet exemple de partie met en évidence les différents cas de figure du pointage traditionnel:
 
-- [ ] Le carreau #1 est ouvert: son score est donc égal à la somme des quilles abattues dans les deux lancers (9=3+6).
-- [ ] Le joueur a réussi un abat au carreau #2. Le score de ce carreau est donc égal à 10 + le nombre de quilles abattues lors des des deux lancers suivants (5 + 0), soit 15. Le score cumulatif est donc de 9+15=24.
-- [ ] Le joueur a réussi une réserve au carreau #4: le score de ce carreau est donc de 10 + le nombre de quilles abattues au lancer suivant (10), soit 20. Le score cumulatif est donc de 29+20=49.
-- [ ] Le joueur a réussi une réserve au carreau #10, il relance donc une troisième fois.
+- Le carreau #1 est ouvert: son score est donc égal à la somme des quilles abattues dans les deux lancers (9=3+6).
+- Le joueur a réussi un abat au carreau #2. Le score de ce carreau est donc égal à 10 + le nombre de quilles abattues lors des des deux lancers suivants (5 + 0), soit 15. Le score cumulatif est donc de 9+15=24.
+- Le joueur a réussi une réserve au carreau #4: le score de ce carreau est donc de 10 + le nombre de quilles abattues au lancer suivant (10), soit 20. Le score cumulatif est donc de 29+20=49.
+- Le joueur a réussi une réserve au carreau #10, il relance donc une troisième fois.
 
 ## Librairie de pointage
 
