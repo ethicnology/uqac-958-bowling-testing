@@ -49,9 +49,9 @@
 - [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
 
 
-### getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
+### getPinsDown(int roll) ✔️
 
-- [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1.
+- [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1. (**Antoine**)
 
 
 ### getFrameNumber() ✔️
@@ -93,9 +93,9 @@
 - [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
 
 
-### getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
+### getPinsDown(int roll) ✔️
 
-- [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1.
+- [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1. (**Antoine**)
 
 
 ### getFrameNumber() ✔️

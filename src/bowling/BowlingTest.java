@@ -34,6 +34,7 @@ public class BowlingTest {
 		NormalFrameTest.CountPinsDownsTest.class,
 		NormalFrameTest.ToStringTest.class,
 		NormalFrameTest.ResetTest.class,
+		NormalFrameTest.GetPinsDownTest.class,
 	})
 	public static class NormalFrameTest {
 		/**
@@ -204,6 +205,82 @@ public class BowlingTest {
 				assertTrue(true);
 			}
 		}
+	
+		/**
+		 * Test method getPinsDownTest()
+		 */
+		public static class GetPinsDownTest {
+			/**
+			 * Test that get pins down for invalid roll throws exception
+			 */
+			@Test
+			public void normalFrameGetPinsDownInvalidRollFail() {
+				Frame frame = new NormalFrame(1);
+				assertThrows("normal frame should fail when get pins down of invalid roll", BowlingException.class, () -> {
+					frame.getPinsDown(3);
+				});
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 0 roll has been done returns -1
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll1With0Roll() {
+				Frame frame = new NormalFrame(1);
+				assertEquals("normal frame with 0 rolls should return -1 for get pins down of roll 1", -1, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 1 roll has been done works
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll1With1Roll() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 4);
+				assertEquals("normal frame with 1 rolls and 4 pins down in roll 1 should return 4 pins down for roll 1", 4, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 2 roll has been done works
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll1With2Roll() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				assertEquals("normal frame with 2 rolls and 4 pins down in roll 1 should return 4 pins down for roll 1", 4, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 0 roll has been done returns -1
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll2With0Roll() {
+				Frame frame = new NormalFrame(1);
+				assertEquals("normal frame with 0 roll should return -1 for get pins down of roll 2", -1, frame.getPinsDown(2));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 1 roll has been done returns -1
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll2With1Roll() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 4);
+				assertEquals("normal frame with 1 roll should return -1 for get pins down of roll 2", -1, frame.getPinsDown(2));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 2 roll has been done works
+			 */
+			@Test
+			public void normalFrameGetPinsDownRoll2With2Roll() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				assertEquals("normal frame with 2 rolls and 6 pins down in roll 2 should return 6 pins down for roll 2", 6, frame.getPinsDown(2));
+			}
+		}
 	}
 
 	
@@ -219,6 +296,7 @@ public class BowlingTest {
 		LastFrameTest.CountPinsDownsTest.class,
 		LastFrameTest.ToStringTest.class,
 		LastFrameTest.ResetTest.class,
+		LastFrameTest.GetPinsDownTest.class,
 	})
 	public static class LastFrameTest {
 		/**
@@ -390,6 +468,148 @@ public class BowlingTest {
 			@Test
 			public void Todo() {
 				assertTrue(true);
+			}
+		}
+	
+		/**
+		 * Test method getPinsDownTest()
+		 */
+		public static class GetPinsDownTest {
+			/**
+			 * Test that get pins down for invalid roll throws exception
+			 */
+			@Test
+			public void lastFrameGetPinsDownInvalidRollFail() {
+				Frame frame = new LastFrame(10);
+				assertThrows("last frame should fail when get pins down of invalid roll", BowlingException.class, () -> {
+					frame.getPinsDown(4);
+				});
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 0 roll has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll1With0Roll() {
+				Frame frame = new LastFrame(10);
+				assertEquals("last frame with 0 rolls should return -1 for get pins down of roll 1", -1, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 1 roll has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll1With1Roll() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				assertEquals("last frame with 1 rolls and 4 pins down in roll 1 should return 4 pins down for roll 1", 4, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 2 roll has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll1With2Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				assertEquals("last frame with 2 rolls and 4 pins down in roll 1 should return 4 pins down for roll 1", 4, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 1 when 3 roll has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll1With3Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				frame.setPinsDown(3, 4);
+				assertEquals("last frame with 3 rolls and 4 pins down in roll 1 should return 4 pins down for roll 1", 4, frame.getPinsDown(1));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 0 roll has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll2With0Roll() {
+				Frame frame = new LastFrame(10);
+				assertEquals("last frame with 0 roll should return -1 for get pins down of roll 2", -1, frame.getPinsDown(2));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 1 roll has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll2With1Roll() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				assertEquals("last frame with 1 roll should return -1 for get pins down of roll 2", -1, frame.getPinsDown(2));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 2 roll has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll2With2Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				assertEquals("last frame with 2 rolls and 6 pins down in roll 2 should return 6 pins down for roll 2", 6, frame.getPinsDown(2));
+			}
+			
+			/**
+			 * Test that get pins down for roll 2 when 3 rolls has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll2With3Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				frame.setPinsDown(3, 5);
+				assertEquals("last frame with 3 rolls and 6 pins down in roll 2 should return 6 pins down for roll 2", 6, frame.getPinsDown(2));
+			}
+
+			/**
+			 * Test that get pins down for roll 3 when 0 roll has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll3With0Roll() {
+				Frame frame = new LastFrame(10);
+				assertEquals("last frame with 0 roll should return -1 for get pins down of roll 3", -1, frame.getPinsDown(3));
+			}
+			
+			/**
+			 * Test that get pins down for roll 3 when 1 roll has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll3With1Roll() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				assertEquals("last frame with 1 roll should return -1 for get pins down of roll 3", -1, frame.getPinsDown(3));
+			}
+			
+			/**
+			 * Test that get pins down for roll 3 when 2 rolls has been done returns -1
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll3With2Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				assertEquals("last frame with 2 rolls should return -1 for get pins down of roll 3", -1, frame.getPinsDown(3));
+			}
+			
+			/**
+			 * Test that get pins down for roll 3 when 3 rolls has been done works
+			 */
+			@Test
+			public void lastFrameGetPinsDownRoll3With3Rolls() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 4);
+				frame.setPinsDown(2, 6);
+				frame.setPinsDown(3, 5);
+				assertEquals("last frame with 3 rolls and 5 pins down in roll 2 should return 5 pins down for roll 3", 5, frame.getPinsDown(3));
 			}
 		}
 	}
