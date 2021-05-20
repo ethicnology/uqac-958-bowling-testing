@@ -24,13 +24,13 @@
 
 ### toString() ❌
 
-- [x] retourne sous forme de chaîne de caractères les symboles correspondant aux lancers du carreau
-  - [x] un dalot est noté par le symbole -
-  - [x] une réserve par /
-  - [x] un abat par X
-  - [x] tous les autres lancers sont représentés par le chiffre correspondant au nombre de quilles abattues.
-- [x] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10;
-- [x] si un lancer n'a pas été effectué, il est remplacé par un espace. Par exemple, dans le cas d'un abat, cette méthode doit retourner la chaîne "X " (le caractère "X" suivi d'un espace).
+- [x] retourne sous forme de chaîne de caractères les symboles correspondant aux lancers du carreau (**Jules**)
+  - [x] un dalot est noté par le symbole - (**Jules**)
+  - [x] une réserve par / (**Jules**)
+  - [x] un abat par X (**Jules**)
+  - [x] tous les autres lancers sont représentés par le chiffre correspondant au nombre de quilles abattues. (**Jules**)
+- [x] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10; (**Jules**)
+- [x] si un lancer n'a pas été effectué, il est remplacé par un espace. Par exemple, dans le cas d'un abat, cette méthode doit retourner la chaîne "X " (le caractère "X" suivi d'un espace). (**Jules**)
 
 
 ### reset() ❌
