@@ -22,7 +22,7 @@
 - [ ] S'il reste des quilles à abattre après le premier lancer, le joueur lance une deuxième fois. S'il abat toutes les quilles restantes, il réussit ce que l'on appelle une réserve (spare). (Cela signifie qu'abattre dix quilles après le premier lancer ne s'appelle pas un abat.)
 
 
-### toString() ❌
+### toString() ⏰ - **JULES (en cours)**
 
 - [x] retourne sous forme de chaîne de caractères les symboles correspondant aux lancers du carreau (**Jules**)
   - [x] un dalot est noté par le symbole - (**Jules**)
@@ -33,7 +33,7 @@
 - [x] si un lancer n'a pas été effectué, il est remplacé par un espace. Par exemple, dans le cas d'un abat, cette méthode doit retourner la chaîne "X " (le caractère "X" suivi d'un espace). (**Jules**)
 
 
-### reset() ❌
+### reset() ⏰ - **ANTOINE (en cours)**
 
 - [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
 - [ ] Cette méthode peut être appelée en tout moment.
@@ -77,7 +77,7 @@
 
 - [ ] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10;
 
-### reset() ❌
+### reset() ⏰ - **ANTOINE (en cours)**
 
 - [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
 - [ ] Cette méthode peut être appelée en tout moment.
