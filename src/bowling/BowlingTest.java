@@ -262,7 +262,7 @@ public class BowlingTest {
 			 */
 			@Test
 			public void lastFrameGetFrameNumberValid() {
-				assertEquals("LastFrame - getFrameNumber returns passed value for 10",new LastFrame(10).getFrameNumber(), 10);
+				assertEquals("LastFrame - getFrameNumber returns passed value for 10", 10, new LastFrame(10).getFrameNumber());
 			}
 		}
 		
@@ -417,7 +417,7 @@ public class BowlingTest {
 			public void gameInitializationTestSuccess() {
 				Game game = new Game();
 				
-				assertEquals("new game has no frame", game.m_frames.size(), 0);
+				assertEquals("new game has no frame", 0, game.m_frames.size());
 		
 				game.addFrame(new NormalFrame(1));
 				game.addFrame(new NormalFrame(2));
@@ -430,7 +430,7 @@ public class BowlingTest {
 				game.addFrame(new NormalFrame(9));
 				game.addFrame(new LastFrame(10));
 				
-				assertEquals("initialized game has 10 frames", game.m_frames.size(), 10);
+				assertEquals("initialized game has 10 frames", 10, game.m_frames.size());
 			}
 		
 			
@@ -452,7 +452,7 @@ public class BowlingTest {
 				game.addFrame(new NormalFrame(9));
 				assertThrows("invalid 10th frame (isn't a last frame)", BowlingException.class, () -> { game.addFrame(new NormalFrame(10)); });
 				
-				assertEquals("invalid frame isn't added", game.m_frames.size(), 9); // last frame isn't added
+				assertEquals("invalid frame isn't added", 9, game.m_frames.size()); // last frame isn't added
 			}
 			
 			/**
@@ -474,7 +474,7 @@ public class BowlingTest {
 							String message = "invalid " + frameNumber + " th frame shouldn't be last frame";
 							int oldFrameCount = game.m_frames.size();
 							assertThrows(message, BowlingException.class, () -> { game.addFrame(new LastFrame(10)); });
-							assertEquals("invalid frame isn't added", game.m_frames.size(), oldFrameCount); // last frame isn't added
+							assertEquals("invalid frame isn't added", oldFrameCount, game.m_frames.size()); // last frame isn't added
 							break; // no need to continue this invalid number
 						}
 					}
@@ -496,7 +496,7 @@ public class BowlingTest {
 				for(Frame frame: game.m_frames) {
 					int frameNumber = frame.getFrameNumber();
 					String message = "cumulative score for " + frameNumber + " should be 0";
-					assertEquals(message, game.getCumulativeScore(frameNumber), 0);
+					assertEquals(message, 0, game.getCumulativeScore(frameNumber));
 				}
 			}
 			
@@ -511,7 +511,7 @@ public class BowlingTest {
 					game.getCumulativeScore(1);
 				});
 		
-				assertEquals("exception should say that frame #1 doesn't exists", thrown.getMessage(), "Frame #1 does not exist in this game");
+				assertEquals("exception should say that frame #1 doesn't exists", "Frame #1 does not exist in this game", thrown.getMessage());
 			}
 		}
 	
