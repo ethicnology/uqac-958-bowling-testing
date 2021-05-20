@@ -74,7 +74,7 @@ public class BowlingTest {
 			@Test
 			public void normalFrameGetFrameNumberValid() {
 				for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
-					assertEquals("NormalFrame - getFrameNumber returns passed value for" + frameNumber, frameNumber, new NormalFrame(frameNumber).getFrameNumber());
+					assertEquals("NormalFrame - getFrameNumber returns passed value for " + frameNumber, frameNumber, new NormalFrame(frameNumber).getFrameNumber());
 				}
 			}
 		}
@@ -188,11 +188,58 @@ public class BowlingTest {
 		/**
 		 * Test method reset()
 		 */
-		public static class ResetTest {
-			// TODO
+		public static class ResetTest {			
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void normalFrameResetWith0RollGetRoll1() {
+				Frame frame = new NormalFrame(1);
+				frame.reset();
+				assertEquals("reset with 0 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void normalFrameResetWith1RollGetRoll1() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 5);
+				frame.reset();
+				assertEquals("reset with 1 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void normalFrameResetWith2RollGetRoll1() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				assertEquals("reset with 2 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void normalFrameResetWith2RollGetRoll2() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				assertEquals("reset with 2 roll -> roll 2 should be empty", -1, frame.getPinsDown(2));
+			}
+			
+			@Test
+			public void normalFrameResetWith1RollReRoll1() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 5);
+				frame.reset();
+				frame.setPinsDown(1, 6);
+				assertEquals("reset with 1 roll then set 6 pins down -> roll 1 should return 6", 6, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void normalFrameResetWith2RollReRoll2() {
+				Frame frame = new NormalFrame(1);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				frame.setPinsDown(1, 6);
+				frame.setPinsDown(2, 3);
+				assertEquals("reset with 2 roll then set 3 pins down on roll 2 -> roll 2 should return 3", 3, frame.getPinsDown(2));
 			}
 		}
 	
@@ -454,10 +501,80 @@ public class BowlingTest {
 		 * Test method reset()
 		 */
 		public static class ResetTest {
-			// TODO
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void lastFrameResetWith0RollGetRoll1() {
+				Frame frame = new LastFrame(10);
+				frame.reset();
+				assertEquals("reset with 0 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void lastFrameResetWith1RollGetRoll1() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.reset();
+				assertEquals("reset with 1 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void lastFrameResetWith2RollGetRoll1() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				assertEquals("reset with 2 roll -> roll 1 should be empty", -1, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void lastFrameResetWith2RollGetRoll2() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				assertEquals("reset with 2 roll -> roll 2 should be empty", -1, frame.getPinsDown(2));
+			}
+			
+			@Test
+			public void lastFrameResetWith3RollGetRoll3() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 5);
+				frame.setPinsDown(3, 4);
+				frame.reset();
+				assertEquals("reset with 3 rolls -> roll 3 should be empty", -1, frame.getPinsDown(3));
+			}
+			
+			@Test
+			public void lastFrameResetWith1RollReRoll1() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.reset();
+				frame.setPinsDown(1, 6);
+				assertEquals("reset with 1 roll then set 6 pins down -> roll 1 should return 6", 6, frame.getPinsDown(1));
+			}
+			
+			@Test
+			public void lastFrameResetWith2RollReRoll2() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 4);
+				frame.reset();
+				frame.setPinsDown(1, 6);
+				frame.setPinsDown(2, 3);
+				assertEquals("reset with 2 roll then set 3 pins down on roll 2 -> roll 2 should return 3", 3, frame.getPinsDown(2));
+			}
+			
+			@Test
+			public void lastFrameResetWith3RollReRoll3() {
+				Frame frame = new LastFrame(10);
+				frame.setPinsDown(1, 5);
+				frame.setPinsDown(2, 5);
+				frame.setPinsDown(3, 6);
+				frame.reset();
+				frame.setPinsDown(1, 6);
+				frame.setPinsDown(2, 4);
+				frame.setPinsDown(3, 3);
+				assertEquals("reset with 3 roll then set 3 pins down on roll 3 -> roll 3 should return 3", 3, frame.getPinsDown(3));
 			}
 		}
 	

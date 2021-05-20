@@ -33,10 +33,10 @@
 - [x] si un lancer n'a pas été effectué, il est remplacé par un espace. Par exemple, dans le cas d'un abat, cette méthode doit retourner la chaîne "X " (le caractère "X" suivi d'un espace). (**Jules**)
 
 
-### reset() ⏰ - **ANTOINE (en cours)**
+### reset() ✔️
 
-- [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
-- [ ] Cette méthode peut être appelée en tout moment.
+- [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier. (**Antoine**)
+- [ ] Cette méthode peut être appelée en tout moment. (**Antoine**)
 
 
 ### countRolls() ✔️
@@ -77,10 +77,10 @@
 
 - [ ] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10;
 
-### reset() ⏰ - **ANTOINE (en cours)**
+### reset() ✔️
 
-- [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
-- [ ] Cette méthode peut être appelée en tout moment.
+- [x] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier. (**Antoine**)
+- [x] Cette méthode peut être appelée en tout moment. (**Antoine**)
 
 
 ### countRolls() ✔️
