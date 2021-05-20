@@ -3,7 +3,6 @@ package bowling;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import stev.bowling.Game;
@@ -13,61 +12,72 @@ import stev.bowling.Frame;
 import stev.bowling.BowlingException;
 
 
-public class BowlingTest {
-	private Game game;
 
-	/**
-	 * Initialize a global Game variable.
-	 */
-	@Before
-	public void setUp() throws Exception {
-		this.game = new Game();
-	}
 
+/**
+ * 
+ * @author Antoine Bouabana.
+ */
+public class BowlingTestAntoine {
+
+	/******************************************
+	 * TEST DE LA CLASSE NORMAL FRAME
+	 ******************************************/
+	
 	/**
-	 * NormalFrameSuccess should success with valid integers, between 1 to 9.
+	 * Teste le cas normal de création des normal frame (c'est à dire des frame de 1 à 9)
 	 */
 	@Test
-	public void normalFrameSuccess() {
+	public void normalFrameCreateTestSuccess() {
 		for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
 			assertTrue("valid normal frame number " + frameNumber, new NormalFrame(frameNumber) instanceof Frame);
 		}
-		/*assertTrue(new NormalFrame(1) instanceof Frame);
-		assertTrue(new NormalFrame(2) instanceof Frame);
-		assertTrue(new NormalFrame(3) instanceof Frame);
-		assertTrue(new NormalFrame(4) instanceof Frame);
-		assertTrue(new NormalFrame(5) instanceof Frame);
-		assertTrue(new NormalFrame(6) instanceof Frame);
-		assertTrue(new NormalFrame(7) instanceof Frame);
-		assertTrue(new NormalFrame(8) instanceof Frame);
-		assertTrue(new NormalFrame(9) instanceof Frame);*/
 	}
-
+	
 	/**
-	 * NormalFrameFailure should throw a BowlingException with a non-valid integer
-	 * below 1 or over 9 (10 should works only with LastFrame).
+	 * Teste le cas où la création des normal frame devrait échouer (c'est à dire des frame qui ne sont pas dans l'intervale [1;9])
 	 */
 	@Test
-	public void normalFrameFailure() throws Exception {
+	public void normalFrameCreateTestFailure() {
 		assertThrows("invalid normal frame number -1", BowlingException.class, () -> { new NormalFrame(-1); });
 		assertThrows("invalid normal frame number 0", BowlingException.class, () -> { new NormalFrame(0); });
 		assertThrows("invalid normal frame number 10", BowlingException.class, () -> { new NormalFrame(10); });
 		assertThrows("invalid normal frame number 11", BowlingException.class, () -> { new NormalFrame(11); });
 	}
-
+	
 	/**
-	 * LastFrameSuccess should success with 10 a.k.a. last frame.
+	 * Teste que le numéro des frame est bien celui donné au constructeur
 	 */
 	@Test
-	public void lastFrameSuccess() {
+	public void normalFrameFrameNumberIsValid() {
+		for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
+			Frame frame = new NormalFrame(frameNumber);
+			assertEquals("frame number passed is kept " + frameNumber, frame.getFrameNumber(), frameNumber);
+			Game game = new Game();
+			game.addFrame(frame);
+			assertEquals("game doesn't change frame number " + frameNumber, game.m_frames.get(0).getFrameNumber(), frameNumber);
+		}
+	}
+	
+	
+
+	/******************************************
+	 * TEST DE LA CLASSE LAST FRAME
+	 ******************************************/
+	
+	/**
+	 * Teste le cas normal de création des last frame (c'est à dire une frame 10)
+	 */
+	@Test
+	public void lastFrameCreateTestSuccess() {
 		assertTrue("valid last frame number 10", new LastFrame(10) instanceof Frame);
 	}
-
+	
 	/**
-	 * LastFrameException should throw exception if value != 10.
+	 * Teste le cas où la création des last frame devrait échouer (tout ce qui n'est pas 10)
 	 */
 	@Test
-	public void lastFrameFailure() throws Exception {
+	public void lastFrameCreateTestFailure() {
 		assertThrows("invalid last frame number -1", BowlingException.class, () -> { new LastFrame(-1); });
 		assertThrows("invalid last frame number 0", BowlingException.class, () -> { new LastFrame(0); });
 		assertThrows("invalid last frame number 1", BowlingException.class, () -> { new LastFrame(1); });
@@ -83,27 +93,14 @@ public class BowlingTest {
 	}
 	
 	/**
-	 * TODO
+	 * Teste que le numéro des frame est bien celui donné au constructeur
 	 */
 	@Test
-	public void setPinsDownSuccess() {
-		assertEquals("36", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 6).toString());
-		assertEquals("X ", new NormalFrame(2).setPinsDown(1, 10).toString());
-		assertEquals("--", new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, 0).toString());
-		assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
-	}
-	
-	/**
-	 * setPinsDownFailure should throw exception because it revert the throw order (2 instead of 1) and because it use non-valid value such as 3.
-	 */
-	@Test(expected = BowlingException.class)
-	public void setPinsDownFailure() {
-		// todo replace with assert throws ?
-		new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6);
-		new NormalFrame(1).setPinsDown(3, 3);
+	public void lastFrameFrameNumberIsValid() {
+		Frame frame = new LastFrame(10);
+		assertEquals("frame number passed is kept 10", frame.getFrameNumber(), 10);
 	}
 
-	
 	/******************************************
 	 * TESTS ON CLASS GAME
 	 ******************************************/
@@ -130,10 +127,9 @@ public class BowlingTest {
 		
 		assertEquals("initialized game has 10 frames", game.m_frames.size(), 10);
 	}
-
 	
 	/**
-	 * test that we can't add a normal frame instead of a last frame (at the 10th position)
+	 * Teste l'ajout d'une normal frame en 10 ème position (à la place d'une last frame)
 	 */
 	@Test
 	public void gameAddNormalFrameInsteadOfLastFrame() {
@@ -154,7 +150,7 @@ public class BowlingTest {
 	}
 	
 	/**
-	 * test that we can't add a last frame instead of a normal frame (first to the 9th position)
+	 * Teste l'ajout d'une last frame à la place d'une normale frame (position 1 à 9)
 	 */
 	@Test
 	public void gameAddLastFrameInsteadOfNormalFrame() {
@@ -180,7 +176,7 @@ public class BowlingTest {
 	}
 	
 	/**
-	 * test that cumulative score is 0 when done on empty frames
+	 * Teste que le score cummulée de frame "vide" est bien 0
 	 */
 	@Test
 	public void gameGetCumulativeScoreShouldBe0WithEmptyFrames() {
@@ -194,7 +190,7 @@ public class BowlingTest {
 	}
 	
 	/**
-	 * test that cumulative score doesn't work on undefined frames
+	 * Teste que le score cummulé ne fonctionne pas sur une frame inexistante
 	 */
 	@Test
 	public void gameGetCumulativeScoreFailOnUndefinedFrame() {
@@ -206,17 +202,36 @@ public class BowlingTest {
 
 		assertEquals("exception should say that frame #1 doesn't exists", thrown.getMessage(), "Frame #1 does not exist in this game");
 	}
+	
+	/**
+	 * Teste que le jeu utilise les numéro de frame cohéremment (si j'ajoute une frame x et que je demande 
+	 * son score, il ne devrait pas me dire que la frame n'existe pas)
+	 */
+	@Test
+	public void gameUsesCoherentlyFrameNumbers() {
+		Game game = new Game();
+		
+		int frameNumber = 5;
+		
+		// add a frame with number 5
+		game.addFrame(new NormalFrame(frameNumber));
+		
+		BowlingException thrown = assertThrows("get the cumulative score without all frame shouldn't work", BowlingException.class, () -> {
+			int score = game.getCumulativeScore(frameNumber);
+		});
+		
+		String message = "exception should not say that frame #" + frameNumber+ " doesn't exists";
 
-	
-	
-	
+		assertNotEquals(message, thrown.getMessage(), "Frame #" + frameNumber + " does not exist in this game");
+	}
+
 	/******************************************
 	 * UTILS
 	 ******************************************/
 	
 	/**
-	 * generate a valid empty game (order and type of frame is valid)
-	 * @return a valid game
+	 * Génère une partie vide (mais respectant les règles d'initialisation)
+	 * @return une partie vide valide
 	 */
 	private static Game generateEmptyGameWithValidFrames() {
 		Game game = new Game();
