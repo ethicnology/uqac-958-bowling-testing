@@ -24,6 +24,11 @@ public class BowlingTest {
 		this.game = new Game();
 	}
 
+	
+	/******************************************
+	 * TESTS ON CLASS NORMAL FRAME
+	 ******************************************/
+
 	/**
 	 * NormalFrameSuccess should success with valid integers, between 1 to 9.
 	 */
@@ -44,29 +49,11 @@ public class BowlingTest {
 	}
 
 	/**
-	 * verify that getFrameNumber returns frame number passed in the constructor (for normal frame)
-	 */
-	@Test
-	public void normalFrameGetFrameNumberValid() {
-		for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
-			assertEquals("NormalFrame - getFrameNumber returns passed value for" + frameNumber,new NormalFrame(frameNumber).getFrameNumber(), frameNumber);
-		}
-	}
-
-	/**
-	 * verify that getFrameNumber returns frame number passed in the constructor (for last frame)
-	 */
-	@Test
-	public void lastFrameGetFrameNumberValid() {
-		assertEquals("LastFrame - getFrameNumber returns passed value for 10",new LastFrame(10).getFrameNumber(), 10);
-	}
-
-	/**
 	 * NormalFrameFailure should throw a BowlingException with a non-valid integer
 	 * below 1 or over 9 (10 should works only with LastFrame).
 	 */
 	@Test
-	public void normalFrameFailure() throws Exception {
+	public void normalFrameFailure() {
 		assertThrows("invalid normal frame number -1", BowlingException.class, () -> { new NormalFrame(-1); });
 		assertThrows("invalid normal frame number 0", BowlingException.class, () -> { new NormalFrame(0); });
 		assertThrows("invalid normal frame number 10", BowlingException.class, () -> { new NormalFrame(10); });
@@ -74,30 +61,13 @@ public class BowlingTest {
 	}
 
 	/**
-	 * LastFrameSuccess should success with 10 a.k.a. last frame.
+	 * verify that getFrameNumber returns frame number passed in the constructor (for normal frame)
 	 */
 	@Test
-	public void lastFrameSuccess() {
-		assertTrue("valid last frame number 10", new LastFrame(10) instanceof Frame);
-	}
-
-	/**
-	 * LastFrameException should throw exception if value != 10.
-	 */
-	@Test
-	public void lastFrameFailure() throws Exception {
-		assertThrows("invalid last frame number -1", BowlingException.class, () -> { new LastFrame(-1); });
-		assertThrows("invalid last frame number 0", BowlingException.class, () -> { new LastFrame(0); });
-		assertThrows("invalid last frame number 1", BowlingException.class, () -> { new LastFrame(1); });
-		assertThrows("invalid last frame number 2", BowlingException.class, () -> { new LastFrame(2); });
-		assertThrows("invalid last frame number 3", BowlingException.class, () -> { new LastFrame(3); });
-		assertThrows("invalid last frame number 4", BowlingException.class, () -> { new LastFrame(4); });
-		assertThrows("invalid last frame number 5", BowlingException.class, () -> { new LastFrame(5); });
-		assertThrows("invalid last frame number 6", BowlingException.class, () -> { new LastFrame(6); });
-		assertThrows("invalid last frame number 7", BowlingException.class, () -> { new LastFrame(7); });
-		assertThrows("invalid last frame number 8", BowlingException.class, () -> { new LastFrame(8); });
-		assertThrows("invalid last frame number 9", BowlingException.class, () -> { new LastFrame(9); });
-		assertThrows("invalid last frame number 11", BowlingException.class, () -> { new LastFrame(11); });
+	public void normalFrameGetFrameNumberValid() {
+		for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
+			assertEquals("NormalFrame - getFrameNumber returns passed value for" + frameNumber,new NormalFrame(frameNumber).getFrameNumber(), frameNumber);
+		}
 	}
 	
 	/**
@@ -119,6 +89,46 @@ public class BowlingTest {
 		// todo replace with assert throws ?
 		new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6);
 		new NormalFrame(1).setPinsDown(3, 3);
+	}
+
+	
+	/******************************************
+	 * TESTS ON CLASS LAST FRAME
+	 ******************************************/
+
+	/**
+	 * LastFrameSuccess should success with 10 a.k.a. last frame.
+	 */
+	@Test
+	public void lastFrameSuccess() {
+		assertTrue("valid last frame number 10", new LastFrame(10) instanceof Frame);
+	}
+
+	/**
+	 * LastFrameException should throw exception if value != 10.
+	 */
+	@Test
+	public void lastFrameFailure() {
+		assertThrows("invalid last frame number -1", BowlingException.class, () -> { new LastFrame(-1); });
+		assertThrows("invalid last frame number 0", BowlingException.class, () -> { new LastFrame(0); });
+		assertThrows("invalid last frame number 1", BowlingException.class, () -> { new LastFrame(1); });
+		assertThrows("invalid last frame number 2", BowlingException.class, () -> { new LastFrame(2); });
+		assertThrows("invalid last frame number 3", BowlingException.class, () -> { new LastFrame(3); });
+		assertThrows("invalid last frame number 4", BowlingException.class, () -> { new LastFrame(4); });
+		assertThrows("invalid last frame number 5", BowlingException.class, () -> { new LastFrame(5); });
+		assertThrows("invalid last frame number 6", BowlingException.class, () -> { new LastFrame(6); });
+		assertThrows("invalid last frame number 7", BowlingException.class, () -> { new LastFrame(7); });
+		assertThrows("invalid last frame number 8", BowlingException.class, () -> { new LastFrame(8); });
+		assertThrows("invalid last frame number 9", BowlingException.class, () -> { new LastFrame(9); });
+		assertThrows("invalid last frame number 11", BowlingException.class, () -> { new LastFrame(11); });
+	}
+
+	/**
+	 * verify that getFrameNumber returns frame number passed in the constructor (for last frame)
+	 */
+	@Test
+	public void lastFrameGetFrameNumberValid() {
+		assertEquals("LastFrame - getFrameNumber returns passed value for 10",new LastFrame(10).getFrameNumber(), 10);
 	}
 
 	
