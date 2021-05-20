@@ -3,8 +3,14 @@ package bowling;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Suite;
 
 import stev.bowling.Game;
@@ -27,7 +33,8 @@ public class BowlingTest {
 	 ******************************************/
 	@RunWith(Suite.class)
 	@Suite.SuiteClasses({
-		NormalFrameTest.ConstructorTest.class,
+		NormalFrameTest.ConstructorTest.ParameterizedValidFrameNumberTest.class,
+		NormalFrameTest.ConstructorTest.ParameterizedInvalidFrameNumberTest.class,
 		NormalFrameTest.GetFrameNumberTest.class,
 		NormalFrameTest.SetPinsDownTest.class,
 		NormalFrameTest.CountRollsTest.class,
@@ -42,25 +49,41 @@ public class BowlingTest {
 		 */
 		public static class ConstructorTest {
 			/**
-			 * NormalFrameSuccess should success with valid integers, between 1 to 9.
+			 * Test valid frame number cases
 			 */
-			@Test
-			public void normalFrameSuccess() {
-				for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
-					assertTrue("valid normal frame number " + frameNumber, new NormalFrame(frameNumber) instanceof Frame);
+			@RunWith(Parameterized.class)
+			public static class ParameterizedValidFrameNumberTest {
+				@Parameters(name = "{index}: frameNumber {0}")
+				public static Object[] data() {
+				    return new Object[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 				}
+
+			    @Parameter
+			    public int frameNumber;
+
+			    @Test
+			    public void test() {
+			        assertTrue("valid normal frame number " + frameNumber, new NormalFrame(frameNumber) instanceof Frame);
+			    }
 			}
-		
+			
 			/**
-			 * NormalFrameFailure should throw a BowlingException with a non-valid integer
-			 * below 1 or over 9 (10 should works only with LastFrame).
+			 * Test invalid frame number cases
 			 */
-			@Test
-			public void normalFrameFailure() {
-				assertThrows("invalid normal frame number -1", BowlingException.class, () -> { new NormalFrame(-1); });
-				assertThrows("invalid normal frame number 0", BowlingException.class, () -> { new NormalFrame(0); });
-				assertThrows("invalid normal frame number 10", BowlingException.class, () -> { new NormalFrame(10); });
-				assertThrows("invalid normal frame number 11", BowlingException.class, () -> { new NormalFrame(11); });
+			@RunWith(Parameterized.class)
+			public static class ParameterizedInvalidFrameNumberTest {
+				@Parameters(name = "{index}: frameNumber {0}")
+				public static Object[] data() {
+				    return new Object[] { -1, 0, 10, 11, 12 };
+				}
+
+			    @Parameter
+			    public int frameNumber;
+
+			    @Test
+			    public void test() {
+			    	assertThrows("invalid normal frame number " + frameNumber, BowlingException.class, () -> { new NormalFrame(frameNumber); });
+			    }
 			}
 		}
 			
@@ -326,7 +349,8 @@ public class BowlingTest {
 	 ******************************************/
 	@RunWith(Suite.class)
 	@Suite.SuiteClasses({
-		LastFrameTest.ConstructorTest.class,
+		LastFrameTest.ConstructorTest.ParameterizedValidFrameNumberTest.class,
+		LastFrameTest.ConstructorTest.ParameterizedInvalidFrameNumberTest.class,
 		LastFrameTest.GetFrameNumberTest.class,
 		LastFrameTest.SetPinsDownTest.class,
 		LastFrameTest.CountRollsTest.class,
@@ -341,30 +365,35 @@ public class BowlingTest {
 		 */
 		public static class ConstructorTest {
 			/**
-			 * LastFrameSuccess should success with 10 a.k.a. last frame.
+			 * Test valid frame number cases
 			 */
-			@Test
-			public void lastFrameSuccess() {
-				assertTrue("valid last frame number 10", new LastFrame(10) instanceof Frame);
+			public static class ParameterizedValidFrameNumberTest {
+				/**
+				 * LastFrameSuccess should success with 10 a.k.a. last frame.
+				 */
+				@Test
+				public void lastFrameSuccess() {
+					assertTrue("valid last frame number 10", new LastFrame(10) instanceof Frame);
+				}
 			}
-		
+			
 			/**
-			 * LastFrameException should throw exception if value != 10.
+			 * Test invalid frame number cases
 			 */
-			@Test
-			public void lastFrameFailure() {
-				assertThrows("invalid last frame number -1", BowlingException.class, () -> { new LastFrame(-1); });
-				assertThrows("invalid last frame number 0", BowlingException.class, () -> { new LastFrame(0); });
-				assertThrows("invalid last frame number 1", BowlingException.class, () -> { new LastFrame(1); });
-				assertThrows("invalid last frame number 2", BowlingException.class, () -> { new LastFrame(2); });
-				assertThrows("invalid last frame number 3", BowlingException.class, () -> { new LastFrame(3); });
-				assertThrows("invalid last frame number 4", BowlingException.class, () -> { new LastFrame(4); });
-				assertThrows("invalid last frame number 5", BowlingException.class, () -> { new LastFrame(5); });
-				assertThrows("invalid last frame number 6", BowlingException.class, () -> { new LastFrame(6); });
-				assertThrows("invalid last frame number 7", BowlingException.class, () -> { new LastFrame(7); });
-				assertThrows("invalid last frame number 8", BowlingException.class, () -> { new LastFrame(8); });
-				assertThrows("invalid last frame number 9", BowlingException.class, () -> { new LastFrame(9); });
-				assertThrows("invalid last frame number 11", BowlingException.class, () -> { new LastFrame(11); });
+			@RunWith(Parameterized.class)
+			public static class ParameterizedInvalidFrameNumberTest {
+				@Parameters(name = "{index}: frameNumber {0}")
+				public static Object[] data() {
+				    return new Object[] { -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+				}
+
+			    @Parameter
+			    public int frameNumber;
+
+			    @Test
+			    public void test() {
+			    	assertThrows("invalid last frame number " + frameNumber, BowlingException.class, () -> { new LastFrame(frameNumber); });
+			    }
 			}
 		}
 			
