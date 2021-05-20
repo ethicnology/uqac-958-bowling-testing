@@ -1,26 +1,28 @@
-# Classe Frame (NormalFrame)
+# 💻 Librairie de pointage 💻 
 
-## constructeur ✔️
+## 🔥 Classe Frame (NormalFrame)
+
+### constructeur ✔️
 
 - [x] La partie d'un joueur est divisée en dix carreaux (frames), numérotés de 1 à 10. (**Jules**)
 - [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Jules**)
 
 
-## setPinsDown(int roll, int score) ❌
+### setPinsDown(int roll, int score) ❌
 
 - [x] La méthode setPinsDown(x,y) permet d'enregistrer que y quilles ont été abattues au lancer x du carreau (le premier lancer porte le numéro 1). (**Jules**)
   - [x] Cette méthode doit obliger l'utilisateur à entrer les lancers dans l'ordre: le lancer 1 avant le lancer 2, etc. Une exception de type BowlingException doit être lancée dans tous les autres cas. (**Jules**)
   - [x] Cette méthode doit également lancer une exception pour des appels correspondant à des lancers impossibles à obtenir aux quilles soit directement, soit en rapport avec les lancers précédents du carreau. (**Jules**)
   - [x] Lorsqu'une exception est lancée, l'objet ne change pas d'état. ❓ **(ON EST SÛR QUE C'EST BON ???)**
 
-### Règles des lancers
+#### Règles des lancers
 
 - [ ] Pour chacun des carreaux 1 à 9, le joueur effectue un ou deux lancers (rolls) pour tenter d'abattre les dix quilles (pins) se trouvant au bout de l'allée.
 - [ ] Lorsqu'un joueur abat dix quilles au premier lancer, il réussit ce que l'on appelle un abat (strike). Dans ce cas, il n'effectue pas de deuxième lancer et le carreau prend fin.
 - [ ] S'il reste des quilles à abattre après le premier lancer, le joueur lance une deuxième fois. S'il abat toutes les quilles restantes, il réussit ce que l'on appelle une réserve (spare). (Cela signifie qu'abattre dix quilles après le premier lancer ne s'appelle pas un abat.)
 
 
-## toString() ❌
+### toString() ❌
 
 - [ ] retourne sous forme de chaîne de caractères les symboles correspondant aux lancers du carreau
   - [ ] un dalot est noté par le symbole -
@@ -31,43 +33,43 @@
 - [ ] si un lancer n'a pas été effectué, il est remplacé par un espace. Par exemple, dans le cas d'un abat, cette méthode doit retourner la chaîne "X " (le caractère "X" suivi d'un espace).
 
 
-## reset() ❌
+### reset() ❌
 
 - [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
 - [ ] Cette méthode peut être appelée en tout moment.
 
 
-## countRolls() ✔️ - **ANTOINE (en cours)**
+### countRolls() ✔️ - **ANTOINE (en cours)**
 
 - [x] La méthode countRolls() retourne le nombre de lancers qui ont eu lieu dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point).
 
 
-## countPinsDown() ✔️ - **ANTOINE (en cours)**
+### countPinsDown() ✔️ - **ANTOINE (en cours)**
 
 - [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point).
 
 
-## getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
+### getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
 
 - [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1.
 
 
-## getFrameNumber() ✔️
+### getFrameNumber() ✔️
 
 - [x] Retourne le numéro de la frame passé au constructeur (**Antoine**)
 
 
 <br><br>
-# Classe LastFrame
+## 🔥 Classe LastFrame
 
-## Méthodes différentes de NormalFrame (à tester donc individuellement) ❌
+### Méthodes différentes de NormalFrame (à tester donc individuellement) ❌
 
 - [x] constructeur (**Jules**)
 - [x]	countRolls() (**Antoine en cours**)
 - [ ]	setPinsDown(int roll, int score)
 - [ ]	toString() 
 
-### Règles du 10ème lancer (setPinsDown) ❌
+#### Règles du 10ème lancer (setPinsDown) ❌
 
 - [ ] Le dixième et dernier carreau est spécial, car le joueur peut parfois lancer trois fois:
   - [ ] si le joueur réussit un abat, il lance deux autres fois et le carreau prend fin;
@@ -76,19 +78,19 @@
 
 
 <br><br>
-# Classe Game
+## 🔥 Classe Game
 
-## addFrame(Frame f) ✔️
+### addFrame(Frame f) ✔️
 
 - [x] On lui ajoute des carreaux (donc des objets de type Frame) en utilisant sa méthode addFrame(f). (**Antoine**)
 - [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Antoine**)
 
 
-## 	getCumulativeScore(int frame) ❌
+### 	getCumulativeScore(int frame) ❌
 
 - [ ] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x.
 
-### Règles de pointage pour getCumulativeScore()
+#### Règles de pointage pour getCumulativeScore()
 
 - [ ] Le score d'un carreau ouvert est égal au nombre de quilles abattues.
 - [ ] Le score d'un carreau fermé est égal au nombre de quilles abattues, auquel on ajoute des points bonus:
@@ -99,7 +101,7 @@
 *Un carreau où le joueur réussit à abattre les dix quilles (que ce soit en un ou deux lancers) s'appelle un carreau fermé (mark); autrement, on dit que le carreau est ouvert (open frame). Un lancer qui n'atteint aucune quille est appelé un dalot.*
 
 
-## toString() ❌
+### toString() ❌
 
 - [ ] Affiche la grille complète de pointage
   - [ ] On y retrouve sur la première ligne le numéro du carreau.
@@ -109,7 +111,7 @@
 
 <br><br>
 
-# Notation
+## Notation
 
 Il y a plus d'une quinzaine d'erreurs distinctes.
 
@@ -126,7 +128,9 @@ Il y a plus d'une quinzaine d'erreurs distinctes.
 
 
 <br><br>
-# Contexte
+## Contexte
+
+![Image of bowling](https://static.blog4ever.com/2013/03/731698/artfichier_731698_7617711_20180309255394.png)
 
 ## Exemple de grille de pointage
 
