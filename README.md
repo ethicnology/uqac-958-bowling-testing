@@ -58,8 +58,8 @@ La classe Frame représente un carreau. On s'attend à ce qu'elle fournisse les 
 La classe Game représente la partie d'un joueur.
 
 - [x] On lui ajoute des carreaux (donc des objets de type Frame) en utilisant sa méthode addFrame(f).
-- [ ] La méthode getFrame(x) permet d'obtenir l'objet Frame correspondant au carreau x. **(CETTE MÉTHODE N'EXISTE PAS)**
 - [ ] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x.
+- La méthode getFrame(x) permet d'obtenir l'objet Frame correspondant au carreau x. **(CETTE MÉTHODE N'EXISTE PAS)**
 
 ## Consignes et Notation
 
