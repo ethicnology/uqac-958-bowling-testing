@@ -44,6 +44,24 @@ public class BowlingTest {
 	}
 
 	/**
+	 * verify that getFrameNumber returns frame number passed in the constructor (for normal frame)
+	 */
+	@Test
+	public void normalFrameGetFrameNumberValid() {
+		for(int frameNumber = 1; frameNumber < 10; frameNumber++) {
+			assertEquals("NormalFrame - getFrameNumber returns passed value for" + frameNumber,new NormalFrame(frameNumber).getFrameNumber(), frameNumber);
+		}
+	}
+
+	/**
+	 * verify that getFrameNumber returns frame number passed in the constructor (for last frame)
+	 */
+	@Test
+	public void lastFrameGetFrameNumberValid() {
+		assertEquals("LastFrame - getFrameNumber returns passed value for 10",new LastFrame(10).getFrameNumber(), 10);
+	}
+
+	/**
 	 * NormalFrameFailure should throw a BowlingException with a non-valid integer
 	 * below 1 or over 9 (10 should works only with LastFrame).
 	 */
