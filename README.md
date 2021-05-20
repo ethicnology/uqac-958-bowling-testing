@@ -3,7 +3,7 @@
 ## constructeur
 
 - [x] La partie d'un joueur est divisée en dix carreaux (frames), numérotés de 1 à 10. (**Jules**)
-- [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Antoine**)
+- [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Jules**)
 
 
 ## setPinsDown(int roll, int score)
@@ -81,6 +81,7 @@
 ## addFrame(Frame f)
 
 - [x] On lui ajoute des carreaux (donc des objets de type Frame) en utilisant sa méthode addFrame(f). (**Antoine**)
+- [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Antoine**)
 
 
 ## 	getCumulativeScore(int frame)
