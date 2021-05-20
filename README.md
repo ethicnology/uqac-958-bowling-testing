@@ -39,14 +39,14 @@
 - [ ] Cette méthode peut être appelée en tout moment.
 
 
-### countRolls() ✔️ - **ANTOINE (en cours)**
+### countRolls() ✔️
 
-- [x] La méthode countRolls() retourne le nombre de lancers qui ont eu lieu dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point).
+- [x] La méthode countRolls() retourne le nombre de lancers qui ont eu lieu dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
 
 
-### countPinsDown() ✔️ - **ANTOINE (en cours)**
+### countPinsDown() ✔️
 
-- [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point).
+- [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
 
 
 ### getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
@@ -62,19 +62,45 @@
 <br><br>
 ## 🔥 Classe LastFrame
 
-### Méthodes différentes de NormalFrame (à tester donc individuellement) ❌
+### constructeur ✔️
 
-- [x] constructeur (**Jules**)
-- [x]	countRolls() (**Antoine en cours**)
-- [ ]	setPinsDown(int roll, int score)
-- [ ]	toString() 
+- [x] La partie d'un joueur est divisée en dix carreaux (frames), numérotés de 1 à 10. (**Jules**)
 
-#### Règles du 10ème lancer (setPinsDown) ❌
+### setPinsDown(int roll, int score) ❌
 
 - [ ] Le dixième et dernier carreau est spécial, car le joueur peut parfois lancer trois fois:
   - [ ] si le joueur réussit un abat, il lance deux autres fois et le carreau prend fin;
   - [ ] si le joueur réussit une réserve après le deuxième lancer, il lance une troisième et dernière fois et le carreau prend fin;
   - [ ] autrement, le joueur lance exactement deux fois.
+
+### toString() ❌
+
+- [ ] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10;
+
+### reset() ❌
+
+- [ ] La méthode reset() doit effacer toute l'information du carreau, et permet de ré-enregistrer les lancers à partir du premier.
+- [ ] Cette méthode peut être appelée en tout moment.
+
+
+### countRolls() ✔️
+
+- [x] La méthode countRolls() retourne le nombre de lancers qui ont eu lieu dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
+
+
+### countPinsDown() ✔️
+
+- [x] La méthode countPinsDown() retourne le nombre total de quilles abattues dans le carreau (en fonction des lancers qui ont été enregistrés jusqu'à ce point). (**Antoine**)
+
+
+### getPinsDown(int roll) ✔️ - **ANTOINE (en cours)**
+
+- [x] La méthode countPinsDown(x) retourne le nombre de quilles abattues au lancer x (le premier lancer est numéroté 1). Si ce lancer n'a pas eu lieu, la méthode retourne -1.
+
+
+### getFrameNumber() ✔️
+
+- [x] Retourne le numéro de la frame passé au constructeur (**Antoine**)
 
 
 <br><br>
