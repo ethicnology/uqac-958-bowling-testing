@@ -13,13 +13,13 @@
 - [x] La méthode setPinsDown(x,y) permet d'enregistrer que y quilles ont été abattues au lancer x du carreau (le premier lancer porte le numéro 1). (**Jules**)
   - [x] Cette méthode doit obliger l'utilisateur à entrer les lancers dans l'ordre: le lancer 1 avant le lancer 2, etc. Une exception de type BowlingException doit être lancée dans tous les autres cas. (**Jules**)
   - [x] Cette méthode doit également lancer une exception pour des appels correspondant à des lancers impossibles à obtenir aux quilles soit directement, soit en rapport avec les lancers précédents du carreau. (**Jules**)
-  - [x] Lorsqu'une exception est lancée, l'objet ne change pas d'état. ❓ **(ON EST SÛR QUE C'EST BON ???)**
+  - [ ] Lorsqu'une exception est lancée, l'objet ne change pas d'état. ❓ **(ON EST SÛR QUE C'EST BON ???)**
 
 #### Règles des lancers
 
-- [ ] Pour chacun des carreaux 1 à 9, le joueur effectue un ou deux lancers (rolls) pour tenter d'abattre les dix quilles (pins) se trouvant au bout de l'allée.
-- [ ] Lorsqu'un joueur abat dix quilles au premier lancer, il réussit ce que l'on appelle un abat (strike). Dans ce cas, il n'effectue pas de deuxième lancer et le carreau prend fin.
-- [ ] S'il reste des quilles à abattre après le premier lancer, le joueur lance une deuxième fois. S'il abat toutes les quilles restantes, il réussit ce que l'on appelle une réserve (spare). (Cela signifie qu'abattre dix quilles après le premier lancer ne s'appelle pas un abat.)
+- Pour chacun des carreaux 1 à 9, le joueur effectue un ou deux lancers (rolls) pour tenter d'abattre les dix quilles (pins) se trouvant au bout de l'allée.
+- Lorsqu'un joueur abat dix quilles au premier lancer, il réussit ce que l'on appelle un abat (strike). Dans ce cas, il n'effectue pas de deuxième lancer et le carreau prend fin.
+- S'il reste des quilles à abattre après le premier lancer, le joueur lance une deuxième fois. S'il abat toutes les quilles restantes, il réussit ce que l'on appelle une réserve (spare). (Cela signifie qu'abattre dix quilles après le premier lancer ne s'appelle pas un abat.)
 
 
 ### toString() ✔️
@@ -66,16 +66,16 @@
 
 - [x] La partie d'un joueur est divisée en dix carreaux (frames), numérotés de 1 à 10. (**Jules**)
 
-### setPinsDown(int roll, int score) ❌
+### setPinsDown(int roll, int score) ✔️
 
-- [ ] Le dixième et dernier carreau est spécial, car le joueur peut parfois lancer trois fois:
-  - [ ] si le joueur réussit un abat, il lance deux autres fois et le carreau prend fin;
-  - [ ] si le joueur réussit une réserve après le deuxième lancer, il lance une troisième et dernière fois et le carreau prend fin;
-  - [ ] autrement, le joueur lance exactement deux fois.
+- [x] Le dixième et dernier carreau est spécial, car le joueur peut parfois lancer trois fois: (**Jules**)
+  - [x] si le joueur réussit un abat, il lance deux autres fois et le carreau prend fin; (**Jules**)
+  - [x] si le joueur réussit une réserve après le deuxième lancer, il lance une troisième et dernière fois et le carreau prend fin; (**Jules**)
+  - [x] autrement, le joueur lance exactement deux fois. (**Jules**)
 
-### toString() ❌
+### toString() ✔️
 
-- [ ] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10;
+- [x] La méthode doit toujours retourner deux caractères pour les carreaux 1-9, et trois caractères pour le carreau 10; (**Jules**)
 
 ### reset() ✔️
 
