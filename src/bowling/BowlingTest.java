@@ -106,45 +106,23 @@ public class BowlingTest {
 		 * Test method setPinsDown()
 		 */
 		public static class SetPinsDownTest {
-			/**
-			 * Test dalot sign if no pins knocked down
-			 */
-			@Test
-			public void setPinsDownWithDalot() {
-				assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
-			}
-			
-			/**
-			 * Test double dalot sign if no pins knocked down after 2 throws
-			 */
-			@Test
-			public void setPinsDownWithDoubleDalot() {
-				assertEquals("--", new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 0).toString());
-			}
-			
-			/**
-			 * Test spare sign if all pins knocked down
-			 */
-			@Test
-			public void setPinsDownWithSpare() {
-				assertEquals("3/", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 7).toString());
-			}
-
-			/**
-			 * Test numbers with open frame
-			 */
-			@Test
-			public void setPinsDownWithOpenFrame() {
-				assertEquals("26", new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 6).toString());
-			}
-			
-			/**
-			 * Test strike sign "X "
-			 */
-			@Test
-			public void setPinsDownWithStrike() {
-				assertEquals("X ", new NormalFrame(1).setPinsDown(1, 10).toString());
-			}
+            /**
+             * setPinsDownSuccess 
+             */
+            @Test
+            public void setPinsDownThrow1Success() {
+                Frame a = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 1);
+                assertEquals(2,a.getPinsDown(1));
+            }
+            
+            /**
+             * setPinsDownSuccess 
+             */
+            @Test
+            public void setPinsDownThrow2Success() {
+                Frame a = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 1);
+                assertEquals(1,a.getPinsDown(2));
+            }
 			
 			/**
 			 * setPinsDownFailure should throw exception because it revert the throw order (2 instead of 1) and because it use non-valid value such as 3.
@@ -230,10 +208,44 @@ public class BowlingTest {
 		 * Test method toString()
 		 */
 		public static class ToStringTest {
-			// TODO
+			/**
+			 * Test dalot sign if no pins knocked down
+			 */
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void setPinsDownWithDalot() {
+				assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
+			}
+			
+			/**
+			 * Test double dalot sign if no pins knocked down after 2 throws
+			 */
+			@Test
+			public void setPinsDownWithDoubleDalot() {
+				assertEquals("--", new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 0).toString());
+			}
+			
+			/**
+			 * Test spare sign if all pins knocked down
+			 */
+			@Test
+			public void setPinsDownWithSpare() {
+				assertEquals("3/", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 7).toString());
+			}
+
+			/**
+			 * Test numbers with open frame
+			 */
+			@Test
+			public void setPinsDownWithOpenFrame() {
+				assertEquals("26", new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 6).toString());
+			}
+			
+			/**
+			 * Test strike sign "X "
+			 */
+			@Test
+			public void setPinsDownWithStrike() {
+				assertEquals("X ", new NormalFrame(1).setPinsDown(1, 10).toString());
 			}
 		}
 		
@@ -443,10 +455,40 @@ public class BowlingTest {
 		 * Test method setPinsDown()
 		 */
 		public static class SetPinsDownTest {
-			// TODO
+			/**
+			 *  If strike third rolls should be allowed 
+			 */
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void setPinsDown3RollsOnStrike() {
+				Frame z = new LastFrame(10);
+				z.setPinsDown(1, 10);
+				z.setPinsDown(2, 3);
+				z.setPinsDown(3, 3);
+				assertEquals(3, z.getPinsDown(3));
+			}
+			
+			/**
+			 *  If spare third rolls should be allowed 
+			 */
+			@Test
+			public void setPinsDown3RollsOnSpare() {
+				Frame z = new LastFrame(10);
+				z.setPinsDown(1, 5);
+				z.setPinsDown(2, 5);
+				z.setPinsDown(3, 9);
+				assertEquals(9, z.getPinsDown(3));
+			}
+			
+			
+			/**
+			 *  If no spare nor strike there are only 2 rolls 
+			 */
+			@Test
+			public void setPinsDown2RollsOnElse() {
+				Frame z = new LastFrame(10);
+				z.setPinsDown(1, 5);
+				z.setPinsDown(2, 4);
+		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { z.setPinsDown(3, 1); });
 			}
 		}
 		
@@ -548,10 +590,20 @@ public class BowlingTest {
 		 * Test method toString()
 		 */
 		public static class ToStringTest {
-			// TODO
+			/**
+			 *   Two rolls should return 2 char
+			 */
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void setPinsDown2Rolls() {
+				assertEquals("17", new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 7).toString());
+			}
+			
+			/**
+			 *  Three rolls should return 3 char
+			 */
+			@Test
+			public void setPinsDown3Rolls() {
+				assertEquals("1/X", new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 9).setPinsDown(3, 10).toString());
 			}
 		}
 		
