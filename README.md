@@ -112,17 +112,17 @@
 - [x] Selon que l'on soit dans les carreaux 1 à 9 ou au dixième, on doit instancier les classes NormalFrame ou LastFrame, respectivement. (**Antoine**)
 
 
-### 	getCumulativeScore(int frame) ❌
+### 	getCumulativeScore(int frame) ✔️
 
-- [ ] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x.
+- [x] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x.
 
 #### Règles de pointage pour getCumulativeScore()
 
-- [ ] Le score d'un carreau ouvert est égal au nombre de quilles abattues.
-- [ ] Le score d'un carreau fermé est égal au nombre de quilles abattues, auquel on ajoute des points bonus:
-  - [ ] Dans le cas d'une réserve: les points bonus sont le nombre de quilles abattues dans le prochain lancer.
-  - [ ] Dans le cas d'un abat: les points bonus sont le nombre de quilles abattues dans les deux lancers suivants.
-  - [ ] Attention: si le lancer suivant est lui aussi un abat, les deux prochains lancers se trouvent donc chacun dans un carreau.
+- [x] Le score d'un carreau ouvert est égal au nombre de quilles abattues.
+- [x] Le score d'un carreau fermé est égal au nombre de quilles abattues, auquel on ajoute des points bonus:
+  - [x] Dans le cas d'une réserve: les points bonus sont le nombre de quilles abattues dans le prochain lancer.
+  - [x] Dans le cas d'un abat: les points bonus sont le nombre de quilles abattues dans les deux lancers suivants.
+  - [x] Attention: si le lancer suivant est lui aussi un abat, les deux prochains lancers se trouvent donc chacun dans un carreau.
 
 *Un carreau où le joueur réussit à abattre les dix quilles (que ce soit en un ou deux lancers) s'appelle un carreau fermé (mark); autrement, on dit que le carreau est ouvert (open frame). Un lancer qui n'atteint aucune quille est appelé un dalot.*
 
