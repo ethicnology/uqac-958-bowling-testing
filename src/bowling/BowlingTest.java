@@ -1145,7 +1145,7 @@ public class BowlingTest {
 				
 				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
 									  + "|----+----+----+----+----+----+----+----+----+----+\n"
-									  + "|  54|  37|    |    |    |    |    |    |    |    |\n"
+									  + "|  54|  3/|    |    |    |    |    |    |    |    |\n"
 									  + "|9   |    |    |    |    |    |    |    |    |    |";
 				assertEquals(expectedOutput, game.toString());				
 			}
