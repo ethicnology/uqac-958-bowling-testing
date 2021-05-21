@@ -898,16 +898,303 @@ public class BowlingTest {
 		
 				assertEquals("exception should say that frame #1 doesn't exists", "Frame #1 does not exist in this game", thrown.getMessage());
 			}
+			
+			/**
+			 * noStrikeNorSpareCumulativeScore is  an addition score of all the same shot in the game without stike nor spare
+			 */
+			@Test
+			public void noStrikeNorSpareCumulativeScore() {
+				int scoreEachRoll = 6;
+				int realCumulativeScore = 0;
+				
+				Game game = Utils.generateNoSpareNorStrikeGame(scoreEachRoll);				
+				
+				for(Frame frame: game.m_frames) {
+					realCumulativeScore += scoreEachRoll;
+					int frameNumber = frame.getFrameNumber();
+					String message = "cumulative score for " + frameNumber + " should be " + realCumulativeScore;
+					assertEquals(message, realCumulativeScore, game.getCumulativeScore(frameNumber));
+				}
+			}
+			
+			/**
+			 * spareCumulativeNotMissed test for one spare and a success shot (3 and 3)
+			 */
+			@Test
+			public void spareCumulativeNotMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 19", 19, game.getCumulativeScore(2));				
+			}
+			
+			/**
+			 * spareCumulativeMissed test for one spare and a missed shot the cumulative (0 and 3)
+			 */
+			@Test
+			public void spareCumulativeMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 0).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 13", 13, game.getCumulativeScore(2));	
+			}
+			
+			
+			/**
+			 * strikeCumulativeNotMissed test for one strike and two success shot (5 and 4)
+			 */
+			@Test
+			public void strikeCumulativeNotMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 5).setPinsDown(2, 4));
+				
+				assertEquals("Score expected 28", 28, game.getCumulativeScore(2));	
+			}
+			
+			/**
+			 * strikeCumulativeFirstShotMissed test for one strike and a missed shot and second success (0 and 5)
+			 */
+			@Test
+			public void strikeCumulativeFirstShotMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 0).setPinsDown(2, 5));
+				
+				assertEquals("Score expected 20", 20, game.getCumulativeScore(2));	
+			}
+			
+			/**
+			 * strikeCumulativeSecondShotMissed test for one strike and a missed second shot and first shot success (3 and 0)
+			 */
+			@Test
+			public void strikeCumulativeSecondShotMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 0));
+				
+				assertEquals("Score expected 16", 16, game.getCumulativeScore(2));	
+			}
+			
+			/**
+			 * strikeCumulativeBothShotMissed test for one strike and both missed
+			 */
+			@Test
+			public void strikeCumulativeBothShotMissed() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 0).setPinsDown(2, 0));
+				
+				assertEquals("Score expected 10", 10, game.getCumulativeScore(2));	
+			}
+			
+			/**
+			 * spareCumulativeStrike test for one spare and then a strike followed with two success shot (5 and 3)
+			 */
+			@Test
+			public void spareCumulativeStrike() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 5).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 46", 46, game.getCumulativeScore(3));	
+			}
+			
+			/**
+			 * strikeCumulativeTwoInRow test for two strikes in a row and a two success shot (5 and 3)
+			 */
+			@Test
+			public void strikeCumulativeTwoInRow() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 5).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 51", 51, game.getCumulativeScore(3));
+			}
+			
+			/**
+			 * strikeCumulativeThreeInRow test for three strikes in a row and a two success shot (5 and 3)
+			 */
+			@Test
+			public void strikeCumulativeThreeInRow() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(3).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(4).setPinsDown(1, 5).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 81", 81, game.getCumulativeScore(4));
+			}
+			
+			/**
+			 * strikeCumulativeSpare test for a strike followed by a spare and two success shot (5 and 3)
+			 */
+			@Test
+			public void strikeCumulativeSpare() {
+				Game game = new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 5).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(4).setPinsDown(1, 5).setPinsDown(2, 3));
+				
+				assertEquals("Score expected 43", 43, game.getCumulativeScore(3));
+			}
+			
+			/**
+			 * fullStrikeGame test for a game with only strikes
+			 */
+			@Test
+			public void fullStrikeGame() {
+				Game game = Utils.generateFullStrikeGame();
+				
+				assertEquals("Score expected 300", 300, game.getCumulativeScore(10));
+			}
+			
+			/**
+			 * spareNotFinished is a Frame spared without next shot
+			 */
+			@Test
+			public void spareNotFinished() {
+				Game game =  new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 4));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 5));
+				
+				assertEquals("Score expected -1", -1, game.getCumulativeScore(3));
+			}
+			
+			/**
+			 * strikeNotFinished is a Frame Strike without next shot
+			 */
+			@Test
+			public void strikeNotFinished() {
+				Game game =  new Game();
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 4));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+				
+				assertEquals("Score expected -1", -1, game.getCumulativeScore(3));
+			}
+			
+			
+			
 		}
 	
 		/**
 		 * Test method toString()
 		 */
 		public static class ToStringTest {
-			// TODO
+
+			/**
+			 * completeGameNoStrikeOrSpare is a game with alternative success/missed shot
+			 */
 			@Test
-			public void Todo() {
-				assertTrue(true);
+			public void completeGameNoStrikeOrSpare() {
+				Game game = Utils.generateNoSpareNorStrikeGame(5); 
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  5-|  -5|  5-|  -5|  5-|  -5|  5-|  -5|  5-|  -5|\n"
+									  + "|5   |10  |15  |20  |25  |30  |35  |40  |45  |50  |";
+							
+				assertEquals(expectedOutput, game.toString());
+			}
+			
+			/**
+			 * completeOnlyMissedShot is a game with only missed shot
+			 */
+			@Test
+			public void completeOnlyMissedShot() {
+				Game game = Utils.generateNoSpareNorStrikeGame(0); 
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  --|  --|  --|  --|  --|  --|  --|  --|  --|  --|\n"
+									  + "|0   |0   |0   |0   |0   |0   |0   |0   |0   |0   |";
+				assertEquals(expectedOutput, game.toString());				
+			}
+			
+			/**
+			 * fewShotNoStrike is a game not complete with few shots
+			 */
+			@Test
+			public void fewShotNoStrike() {
+				Game game = new Game(); 
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 4));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 5));
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 3));
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  54|  35|  33|    |    |    |    |    |    |    |\n"
+									  + "|9   |17  |23  |    |    |    |    |    |    |    |";
+				assertEquals(expectedOutput, game.toString());				
+			}
+			
+			/**
+			 * spareUnfinished is a game with a unfinished spare
+			 */
+			@Test
+			public void spareUnfinished() {
+				Game game = new Game(); 
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 4));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 3).setPinsDown(2, 7));
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  54|  37|    |    |    |    |    |    |    |    |\n"
+									  + "|9   |    |    |    |    |    |    |    |    |    |";
+				assertEquals(expectedOutput, game.toString());				
+			}
+			
+			/**
+			 * strikeUnfinished is a game with a unfinished strike
+			 */
+			@Test
+			public void strikeUnfinished() {
+				Game game = new Game(); 
+				game.addFrame(new NormalFrame(1).setPinsDown(1, 5).setPinsDown(2, 4));
+				game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  54|  X |    |    |    |    |    |    |    |    |\n"
+									  + "|9   |    |    |    |    |    |    |    |    |    |";
+				assertEquals(expectedOutput, game.toString());				
+			}
+			
+			
+			
+			/**
+			 * emptyGame is a game without any shots
+			 */
+			@Test
+			public void emptyGame() {
+				Game game = new Game(); 
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|    |    |    |    |    |    |    |    |    |    |\n"
+									  + "|    |    |    |    |    |    |    |    |    |    |";
+				assertEquals(expectedOutput, game.toString());				
+			}
+			
+			/**
+			 * gameThreeShotsLastFram is a game with 3 shots at last with spare frame
+			 */
+			@Test
+			public void gameThreeShotsSpareLastFrame() {
+				Game game = Utils.exampleGame(); 
+				
+				
+				String expectedOutput = "|#1  |#2  |#3  |#4  |#5  |#6  |#7  |#8  |#9  |#10 |\n"
+									  + "|----+----+----+----+----+----+----+----+----+----+\n"
+									  + "|  36|  X |  5-|  1/|  X |  --|  -6|  X |  2/| 1/3|\n"
+									  + "|9   |24  |29  |49  |59  |59  |65  |85  |96  |109 |";
+				assertEquals("Expected",expectedOutput, game.toString());				
 			}
 		}
 	}
@@ -938,6 +1225,70 @@ public class BowlingTest {
 			game.addFrame(new NormalFrame(8));
 			game.addFrame(new NormalFrame(9));
 			game.addFrame(new LastFrame(10));
+			
+			return game;
+		}
+		
+		
+		/**
+		 * generate a valid regular game, all the shot have the same value
+		 * @return a valid game
+		 */
+		static Game generateNoSpareNorStrikeGame(int scoreEachRoll) {
+			Game game = new Game();
+			
+			game.addFrame(new NormalFrame(1).setPinsDown(1, scoreEachRoll).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(2).setPinsDown(1, 0).setPinsDown(2, scoreEachRoll));
+			game.addFrame(new NormalFrame(3).setPinsDown(1, scoreEachRoll).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(4).setPinsDown(1, 0).setPinsDown(2, scoreEachRoll));
+			game.addFrame(new NormalFrame(5).setPinsDown(1, scoreEachRoll).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, scoreEachRoll));
+			game.addFrame(new NormalFrame(7).setPinsDown(1, scoreEachRoll).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(8).setPinsDown(1, 0).setPinsDown(2, scoreEachRoll));
+			game.addFrame(new NormalFrame(9).setPinsDown(1, scoreEachRoll).setPinsDown(2, 0));
+			game.addFrame(new LastFrame(10).setPinsDown(1, 0).setPinsDown(2, scoreEachRoll));
+			
+			return game;
+		}
+		
+		/**
+		 * generate full strike game
+		 * @return a valid game
+		 */
+		static Game generateFullStrikeGame() {
+			Game game = new Game();
+			
+			game.addFrame(new NormalFrame(1).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(3).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(4).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(5).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(6).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(7).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(8).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(9).setPinsDown(1, 10));
+			game.addFrame(new LastFrame(10).setPinsDown(1, 10).setPinsDown(2, 10).setPinsDown(3, 10));
+			
+			return game;
+		}
+	
+		/**
+		 * generate the game as example in the subject
+		 * @return a valid game
+		 */
+		static Game exampleGame() {
+			Game game = new Game();
+			
+			game.addFrame(new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 6));
+			game.addFrame(new NormalFrame(2).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(3).setPinsDown(1, 5).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(4).setPinsDown(1, 1).setPinsDown(2, 9));
+			game.addFrame(new NormalFrame(5).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, 0));
+			game.addFrame(new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 6));
+			game.addFrame(new NormalFrame(8).setPinsDown(1, 10));
+			game.addFrame(new NormalFrame(9).setPinsDown(1, 2).setPinsDown(2, 8));
+			game.addFrame(new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 9).setPinsDown(3, 3));
 			
 			return game;
 		}
