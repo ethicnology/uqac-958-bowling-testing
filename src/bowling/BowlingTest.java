@@ -107,23 +107,52 @@ public class BowlingTest {
 		 */
 		public static class SetPinsDownTest {
 			/**
-			 * TODO
+			 * Test dalot sign if no pins knocked down
 			 */
 			@Test
-			public void setPinsDownSuccess() {
-				assertEquals("36", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 6).toString());
-				assertEquals("--", new NormalFrame(6).setPinsDown(1, 0).setPinsDown(2, 0).toString());
+			public void setPinsDownWithDalot() {
 				assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
+			}
+			
+			/**
+			 * Test double dalot sign if no pins knocked down after 2 throws
+			 */
+			@Test
+			public void setPinsDownWithDoubleDalot() {
+				assertEquals("--", new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 0).toString());
+			}
+			
+			/**
+			 * Test spare sign if all pins knocked down
+			 */
+			@Test
+			public void setPinsDownWithSpare() {
+				assertEquals("3/", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 7).toString());
+			}
+
+			/**
+			 * Test numbers with open frame
+			 */
+			@Test
+			public void setPinsDownWithOpenFrame() {
+				assertEquals("26", new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 6).toString());
+			}
+			
+			/**
+			 * Test strike sign "X "
+			 */
+			@Test
+			public void setPinsDownWithStrike() {
+				assertEquals("X ", new NormalFrame(1).setPinsDown(1, 10).toString());
 			}
 			
 			/**
 			 * setPinsDownFailure should throw exception because it revert the throw order (2 instead of 1) and because it use non-valid value such as 3.
 			 */
-			@Test(expected = BowlingException.class)
+			@Test
 			public void setPinsDownFailure() {
-				// todo replace with assert throws ?
-				new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6);
-				new NormalFrame(1).setPinsDown(3, 3);
+		    	assertThrows("You must first enter the score for roll 1", BowlingException.class, () -> { new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6); });
+		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { new NormalFrame(1).setPinsDown(3, 3); });
 			}
 		}
 		
