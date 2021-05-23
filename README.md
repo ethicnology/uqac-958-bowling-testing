@@ -142,8 +142,8 @@ Il y a plus d'une quinzaine d'erreurs distinctes.
 | ✔️ Présence d'un test utilisant une assertion	| 1 |
 | ✔️ Présence d'un test contrôlant une exception	| 1 |
 | ✔️ Présence d'un test paramétrisé	| 2 |
-| ⏰ Nombre d'éléments valides contrôlés	| 15 |
-| ⏰ Nombre d'erreurs distinctes détectées	| 15 |
+| ✔️ Nombre d'éléments valides contrôlés	| 15 |
+| ✔️ Nombre d'erreurs distinctes détectées	| 15 |
 | Total	| 35 |
 
 
