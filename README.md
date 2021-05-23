@@ -11,16 +11,11 @@
 ### setPinsDown(int roll, int score) ✔️
 
 - [x] La méthode setPinsDown(x,y) permet d'enregistrer que y quilles ont été abattues au lancer x du carreau (le premier lancer porte le numéro 1). (**Jules**)
-  - [x] Cette méthode doit obliger l'utilisateur à entrer les lancers dans l'ordre: le lancer 1 avant le lancer 2, etc. Une exception de type BowlingException doit être lancée dans tous les autres cas. (**Jules**)
-  - [x] Cette méthode doit également lancer une exception pour des appels correspondant à des lancers impossibles à obtenir aux quilles soit directement, soit en rapport avec les lancers précédents du carreau. (**Jules**)
-  - [ ] Lorsqu'une exception est lancée, l'objet ne change pas d'état. ❓ **(ON EST SÛR QUE C'EST BON ???)**
-
-#### Règles des lancers
-
-- Pour chacun des carreaux 1 à 9, le joueur effectue un ou deux lancers (rolls) pour tenter d'abattre les dix quilles (pins) se trouvant au bout de l'allée.
-- Lorsqu'un joueur abat dix quilles au premier lancer, il réussit ce que l'on appelle un abat (strike). Dans ce cas, il n'effectue pas de deuxième lancer et le carreau prend fin.
-- S'il reste des quilles à abattre après le premier lancer, le joueur lance une deuxième fois. S'il abat toutes les quilles restantes, il réussit ce que l'on appelle une réserve (spare). (Cela signifie qu'abattre dix quilles après le premier lancer ne s'appelle pas un abat.)
-
+- [x] Cette méthode doit obliger l'utilisateur à entrer les lancers dans l'ordre: le lancer 1 avant le lancer 2, etc. Une exception de type BowlingException doit être lancée dans tous les autres cas. (**Jules**)
+- [x] Cette méthode doit également lancer une exception pour des appels correspondant à des lancers impossibles à obtenir aux quilles soit directement, soit en rapport avec les lancers précédents du carreau. (**Antoine**)
+- [x] Lorsqu'une exception est lancée, l'objet ne change pas d'état. (**Antoine**)
+- [x] Lorsqu'un joueur abat dix quilles au premier lancer, il n'effectue pas de deuxième lancer et le carreau prend fin. (**Antoine**)
+ 
 
 ### toString() ✔️
 
@@ -114,25 +109,25 @@
 
 ### 	getCumulativeScore(int frame) ✔️
 
-- [x] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x.
+- [x] La méthode getCumulativeScore(x) permet d'obtenir le score cumulatif jusqu'au carreau x. (**Léo**)
 
 #### Règles de pointage pour getCumulativeScore()
 
-- [x] Le score d'un carreau ouvert est égal au nombre de quilles abattues.
+- [x] Le score d'un carreau ouvert est égal au nombre de quilles abattues. (**Léo**)
 - [x] Le score d'un carreau fermé est égal au nombre de quilles abattues, auquel on ajoute des points bonus:
-  - [x] Dans le cas d'une réserve: les points bonus sont le nombre de quilles abattues dans le prochain lancer.
-  - [x] Dans le cas d'un abat: les points bonus sont le nombre de quilles abattues dans les deux lancers suivants.
-  - [x] Attention: si le lancer suivant est lui aussi un abat, les deux prochains lancers se trouvent donc chacun dans un carreau.
+  - [x] Dans le cas d'une réserve: les points bonus sont le nombre de quilles abattues dans le prochain lancer. (**Léo**)
+  - [x] Dans le cas d'un abat: les points bonus sont le nombre de quilles abattues dans les deux lancers suivants. (**Léo**)
+  - [x] Attention: si le lancer suivant est lui aussi un abat, les deux prochains lancers se trouvent donc chacun dans un carreau. (**Léo**)
 
 *Un carreau où le joueur réussit à abattre les dix quilles (que ce soit en un ou deux lancers) s'appelle un carreau fermé (mark); autrement, on dit que le carreau est ouvert (open frame). Un lancer qui n'atteint aucune quille est appelé un dalot.*
 
 
 ### toString() ✔️
 
-- [x] Affiche la grille complète de pointage
-  - [x] On y retrouve sur la première ligne le numéro du carreau.
-  - [x] Ensuite, dans chaque carreau, on voit le résultat des lancers: un dalot est noté par le symbole -, une réserve par /, et un abat par X; tous les autres lancers sont représentés par le chiffre correspondant au nombre de quilles abattues.
-  - [x] Finalement, la dernière ligne donne le pointage cumulatif à ce point de la partie.
+- [x] Affiche la grille complète de pointage (**Léo**)
+  - [x] On y retrouve sur la première ligne le numéro du carreau. (**Léo**)
+  - [x] Ensuite, dans chaque carreau, on voit le résultat des lancers: un dalot est noté par le symbole -, une réserve par /, et un abat par X; tous les autres lancers sont représentés par le chiffre correspondant au nombre de quilles abattues. (**Léo**)
+  - [x] Finalement, la dernière ligne donne le pointage cumulatif à ce point de la partie. (**Léo**)
 
 
 <br><br>
