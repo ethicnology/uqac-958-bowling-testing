@@ -3,9 +3,6 @@ package bowling;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -18,6 +15,11 @@ import stev.bowling.NormalFrame;
 import stev.bowling.LastFrame;
 import stev.bowling.Frame;
 import stev.bowling.BowlingException;
+
+/**
+ * Rendu du travail #1 "des tests à en perdre la boule"
+ * @author Léo Monteiro & Jules Emery & Antoine Bouabana
+ */
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -105,33 +107,123 @@ public class BowlingTest {
 		/**
 		 * Test method setPinsDown()
 		 */
-		public static class SetPinsDownTest {
+		public static class SetPinsDownTest {			
             /**
-             * setPinsDownSuccess 
+             * normal frame roll 1 then roll 2 should work just fine
              */
             @Test
-            public void setPinsDownThrow1Success() {
-                Frame a = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 1);
-                assertEquals(2,a.getPinsDown(1));
-            }
-            
-            /**
-             * setPinsDownSuccess 
-             */
-            @Test
-            public void setPinsDownThrow2Success() {
-                Frame a = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 1);
-                assertEquals(1,a.getPinsDown(2));
+            public void setPinsDownRoll1Then2() {
+                Frame frame = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 1);
+                assertEquals(2, frame.countRolls());
             }
 			
+            /**
+             * normal frame roll 2 then roll 1 should throw exception (because roll order is reversed) + state shouldn't be changed
+             */
+            @Test
+            public void setPinsDownRoll2ThenRoll1() {
+            	Frame frame = new NormalFrame(1);
+            	
+            	assertThrows("roll 2 before roll 1 should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 3);
+            		frame.setPinsDown(1, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 0, frame.countRolls());
+		    }
+			
 			/**
-			 * setPinsDownFailure should throw exception because it revert the throw order (2 instead of 1) and because it use non-valid value such as 3.
+			 * Test setPinsDown with invalid roll number (0 and 3) should throw exception and not change the state
 			 */
 			@Test
-			public void setPinsDownFailure() {
-		    	assertThrows("You must first enter the score for roll 1", BowlingException.class, () -> { new NormalFrame(1).setPinsDown(2, 3).setPinsDown(1, 6); });
-		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { new NormalFrame(1).setPinsDown(3, 3); });
+			public void setPinsDownRollInvalidRollsNumber() {
+				Frame frame = new NormalFrame(1);
+		    	assertThrows("There is no such roll 0", BowlingException.class, () -> { frame.setPinsDown(0, 3); });
+            	assertEquals("frame state has not changed after exception", 0, frame.countRolls());
+            	
+            	Frame frame2 = new NormalFrame(1);
+		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { frame2.setPinsDown(3, 3); });
+            	assertEquals("frame state has not changed after exception", 0, frame2.countRolls());
 			}
+			
+            /**
+             * normal frame roll 1 with more than 10 pins should throw exception and not change the state
+             */
+            @Test
+            public void setPinsDownRoll1WithMoreThan10Pins() {
+            	Frame frame = new NormalFrame(1);
+            	
+            	assertThrows("roll 1 with more than 10 pins should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(1, 15); // 15 pins down
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 0, frame.countRolls());
+		    }
+			
+            /**
+             * normal frame roll 1 and 2 with more than 10 pins in total should throw exception and not change the state
+             */
+            @Test
+            public void setPinsDownRoll1And2WithMoreThan10Pins() {
+            	Frame frame = new NormalFrame(1);
+            	
+        		frame.setPinsDown(1, 8);
+            	
+            	assertThrows("roll 2 with more than 10 pins in total should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 6); // total pins = 14
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 1, frame.countRolls());
+		    }
+			
+            /**
+             * normal frame re rolling roll 1 should throw exception
+             */
+            @Test
+            public void setPinsDownReRoll1() {
+            	Frame frame = new NormalFrame(1);
+            	
+        		frame.setPinsDown(1, 8);
+            	
+            	assertThrows("roll 1 with already roll 1 done should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(1, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 8, frame.getPinsDown(1));
+		    }
+			
+            /**
+             * normal frame re rolling roll 2 should throw exception
+             */
+            @Test
+            public void setPinsDownReRoll2() {
+            	Frame frame = new NormalFrame(1);
+
+        		frame.setPinsDown(1, 8);
+        		frame.setPinsDown(2, 1);
+            	
+            	assertThrows("roll 2 with already roll 2 done should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 1, frame.getPinsDown(2));
+		    }
+			
+            /**
+             * normal frame roll 2 after strike in roll 1 shouldn't be possible and throw error
+             */
+            @Test
+            public void setPinsDownRoll2AfterStrike() {
+            	Frame frame = new NormalFrame(1);
+
+        		frame.setPinsDown(1, 10);
+            	
+            	assertThrows("roll 2 with strike in roll 1 should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 0);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 1, frame.countRolls());
+		    }
 		}
 		
 		/**
@@ -213,7 +305,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDownWithDalot() {
-				assertEquals("- ", new NormalFrame(7).setPinsDown(1, 0).toString());
+				String toString = new NormalFrame(7).setPinsDown(1, 0).toString();
+				assertEquals("- ", toString);
+				assertEquals(2, toString.length());
 			}
 			
 			/**
@@ -221,7 +315,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDownWithDoubleDalot() {
-				assertEquals("--", new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 0).toString());
+				String toString = new NormalFrame(7).setPinsDown(1, 0).setPinsDown(2, 0).toString();
+				assertEquals("--", toString);
+				assertEquals(2, toString.length());
 			}
 			
 			/**
@@ -229,7 +325,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDownWithSpare() {
-				assertEquals("3/", new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 7).toString());
+				String toString = new NormalFrame(1).setPinsDown(1, 3).setPinsDown(2, 7).toString();
+				assertEquals("3/", toString);
+				assertEquals(2, toString.length());
 			}
 
 			/**
@@ -237,7 +335,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDownWithOpenFrame() {
-				assertEquals("26", new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 6).toString());
+				String toString = new NormalFrame(1).setPinsDown(1, 2).setPinsDown(2, 6).toString();
+				assertEquals("26", toString);
+				assertEquals(2, toString.length());
 			}
 			
 			/**
@@ -245,7 +345,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDownWithStrike() {
-				assertEquals("X ", new NormalFrame(1).setPinsDown(1, 10).toString());
+				String toString = new NormalFrame(1).setPinsDown(1, 10).toString();
+				assertEquals("X ", toString);
+				assertEquals(2, toString.length());
 			}
 		}
 		
@@ -468,6 +570,30 @@ public class BowlingTest {
 			}
 			
 			/**
+			 *  test that triple strike works
+			 */
+			@Test
+			public void setPinsDownTripleStrike() {
+				Frame z = new LastFrame(10);
+				z.setPinsDown(1, 10);
+				z.setPinsDown(2, 10);
+				z.setPinsDown(3, 10);
+				assertEquals(3, z.countRolls());
+			}
+			
+			/**
+			 *  test that the third roll works even if 2nd roll is empty (but first roll was a strike)
+			 */
+			@Test
+			public void setPinsDown3RollsWithEmptyRoll2() {
+				Frame z = new LastFrame(10);
+				z.setPinsDown(1, 10);
+				z.setPinsDown(2, 0);
+				z.setPinsDown(3, 10);
+				assertEquals(3, z.countRolls());
+			}
+			
+			/**
 			 *  If spare third rolls should be allowed 
 			 */
 			@Test
@@ -489,7 +615,124 @@ public class BowlingTest {
 				z.setPinsDown(1, 5);
 				z.setPinsDown(2, 4);
 		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { z.setPinsDown(3, 1); });
+		    	assertEquals("last frame state hasn't changed", 2, z.countRolls());
 			}
+			
+			// OTHER REGULAR TEST IMPORTED FROM NORMAL FRAME
+			
+            
+			/**
+             * last frame roll 2 before roll 1 should throw exception (because roll order is reversed)
+             */
+            @Test
+            public void setPinsDownRoll2First() {
+				Frame frame = new LastFrame(10);
+            	
+            	assertThrows(BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 3);
+            	});
+		    }
+			
+            /**
+             * last frame roll 3 before previous rolls should throw exception (because roll order is reversed)
+             */
+            @Test
+            public void setPinsDownRoll3First() {
+				Frame frame = new LastFrame(10);
+            	
+            	assertThrows(BowlingException.class, () -> { 
+            		frame.setPinsDown(3, 3);
+            	});
+		    }
+			
+			/**
+			 * Test setPinsDown with invalid roll number (0 and 4) should throw exception
+			 */
+			@Test
+			public void setPinsDownRollInvalidRollsNumber() {
+				Frame frame = new LastFrame(10);
+		    	assertThrows("There is no such roll 0", BowlingException.class, () -> { frame.setPinsDown(0, 3); });
+
+				Frame frame2 = new LastFrame(10);
+		    	assertThrows("There is no such roll 3", BowlingException.class, () -> { frame2.setPinsDown(4, 3); });
+			}
+			
+            /**
+             * last frame roll 1 with more than 10 pins should throw exception
+             */
+            @Test
+            public void setPinsDownRoll1WithMoreThan10Pins() {
+				Frame frame = new LastFrame(10);
+            	
+            	assertThrows("roll 1 with more than 10 pins should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(1, 15); // 15 pins down
+            	});
+		    }
+			
+            /**
+             * last frame roll 1 and 2 with more than 10 pins in total should throw exception
+             */
+            @Test
+            public void setPinsDownRoll1And2WithMoreThan10Pins() {
+				Frame frame = new LastFrame(10);
+            	
+        		frame.setPinsDown(1, 8);
+            	
+            	assertThrows("roll 2 with more than 10 pins in total should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 6); // total pins = 14
+            	});
+		    }
+			
+            /**
+             * last frame re rolling roll 1 should throw exception
+             */
+            @Test
+            public void setPinsDownReRoll1() {
+				Frame frame = new LastFrame(10);
+            	
+        		frame.setPinsDown(1, 8);
+            	
+            	assertThrows("roll 1 with already roll 1 done should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(1, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 8, frame.getPinsDown(1));
+		    }
+			
+            /**
+             * last frame re rolling roll 2 should throw exception
+             */
+            @Test
+            public void setPinsDownReRoll2() {
+				Frame frame = new LastFrame(10);
+
+        		frame.setPinsDown(1, 8);
+        		frame.setPinsDown(2, 1);
+            	
+            	assertThrows("roll 2 with already roll 2 done should throw BowlingException", BowlingException.class, () -> { 
+            		frame.setPinsDown(2, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 1, frame.getPinsDown(2));
+		    }
+			
+            /**
+             * last frame re rolling roll 3 should throw exception
+             */
+            @Test
+            public void setPinsDownReRoll3() {
+				Frame frame = new LastFrame(10);
+
+        		frame.setPinsDown(1, 8);
+        		frame.setPinsDown(2, 2);
+        		frame.setPinsDown(3, 2);
+            	
+            	assertThrows(BowlingException.class, () -> { 
+            		frame.setPinsDown(3, 6);
+            	});
+            	
+            	assertEquals("frame state has not changed after exception", 2, frame.getPinsDown(3));
+		    }
 		}
 		
 		/**
@@ -591,11 +834,13 @@ public class BowlingTest {
 		 */
 		public static class ToStringTest {
 			/**
-			 *   Two rolls should return 2 char
+			 *   Two rolls should return 3 characters every time (event if there is only 2 rolls)
 			 */
 			@Test
 			public void setPinsDown2Rolls() {
-				assertEquals("17", new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 7).toString());
+				String toString = new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 7).toString();
+				assertEquals("17 ", toString);
+				assertEquals(3, toString.length());
 			}
 			
 			/**
@@ -603,7 +848,9 @@ public class BowlingTest {
 			 */
 			@Test
 			public void setPinsDown3Rolls() {
-				assertEquals("1/X", new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 9).setPinsDown(3, 10).toString());
+				String toString = new LastFrame(10).setPinsDown(1, 1).setPinsDown(2, 9).setPinsDown(3, 10).toString();
+				assertEquals("1/X", toString);
+				assertEquals(3, toString.length());
 			}
 		}
 		
