@@ -151,8 +151,6 @@ Il y a plus d'une quinzaine d'erreurs distinctes.
 <br><br>
 ## Contexte
 
-![Image of bowling](https://static.blog4ever.com/2013/03/731698/artfichier_731698_7617711_20180309255394.png)
-
 ## Exemple de grille de pointage
 
 ```
