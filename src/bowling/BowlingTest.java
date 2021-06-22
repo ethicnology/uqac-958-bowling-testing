@@ -17,8 +17,7 @@ import stev.bowling.Frame;
 import stev.bowling.BowlingException;
 
 /**
- * Rendu du travail #1 "des tests à en perdre la boule"
- * @author Léo Monteiro & Jules Emery & Antoine Bouabana
+ * Rendu du travail #1 "des tests Ã  en perdre la boule"
  */
 
 @RunWith(Suite.class)
